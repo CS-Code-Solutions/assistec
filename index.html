@@ -9,11 +9,11 @@
     <style>
         :root {
             /* Cores baseadas no cartão: Azul, Amarelo e Vermelho */
-            --bg-main: #0B2147; /* Azul Escuro */
+            --bg-main: #0B2147; 
             --card-bg: #153265;
-            --accent: #FFD000; /* Amarelo */
+            --accent: #FFD000; 
             --accent-hover: #E5BB00;
-            --accent-red: #C82333; /* Vermelho */
+            --accent-red: #C82333; 
             --text-white: #ffffff;
             --text-gray: #D1D5DB;
             --whatsapp: #25D366;
@@ -263,6 +263,128 @@
             font-size: 0.9rem;
         }
 
+        /* NOVO: Carrossel de Produtos */
+        .produtos-section {
+            background-color: #081733; /* Fundo ligeiramente diferente para destacar */
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 10px 0 20px 0; /* Espaço para sombra */
+            /* Esconder a barra de rolagem (opcional para visual mais limpo) */
+            scrollbar-width: none; 
+            -ms-overflow-style: none;
+        }
+        
+        .carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .produto-card {
+            min-width: 280px;
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 15px;
+            scroll-snap-align: start; /* Faz o scroll parar exatamente no card */
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .produto-card:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            border-color: rgba(255, 208, 0, 0.4);
+        }
+
+        .produto-img-box {
+            width: 100%;
+            height: 200px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            background-color: #fff;
+        }
+
+        .produto-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .produto-card:hover .produto-img-box img {
+            transform: scale(1.05);
+        }
+
+        .produto-info h3 {
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .produto-info p {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .btn-comprar {
+            background-color: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 8px 12px;
+            border-radius: 4px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .btn-comprar:hover {
+            background-color: var(--accent);
+            color: var(--bg-main);
+        }
+
+        .carousel-btn {
+            background-color: var(--accent);
+            color: var(--bg-main);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            position: absolute;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: 0.3s;
+        }
+
+        .carousel-btn:hover {
+            background-color: #fff;
+            transform: scale(1.1);
+        }
+
+        .btn-prev { left: -20px; }
+        .btn-next { right: -20px; }
+
         /* Secção Unificada: Contato, Perfil e Pagamento */
         .cp-grid {
             display: grid;
@@ -485,6 +607,8 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.3rem; }
             .cp-grid { grid-template-columns: 1fr; }
+            .btn-prev { left: 5px; }
+            .btn-next { right: 5px; }
         }
     </style>
 </head>
@@ -499,7 +623,6 @@
                     <span class="logo-subtitle">Peças e Serviços</span>
                 </div>
             </div>
-            <!-- Atualizado com o número fornecido -->
             <a href="https://wa.me/5551991868065?text=Olá%20Julio,%20gostaria%20de%20um%20orçamento!" target="_blank" class="btn-agendar">
                 <i class="fa-brands fa-whatsapp"></i> Fale Conosco
             </a>
@@ -516,7 +639,6 @@
             <p>Manutenção, conserto e peças para Compressores de Ar e Lavadoras de Alta Pressão (Lava Jato). Rapidez e garantia para o seu equipamento não parar.</p>
             
             <div class="hero-buttons">
-                <!-- Atualizado com o número fornecido -->
                 <a href="https://wa.me/5551991868065?text=Olá%20Julio,%20preciso%20de%20ajuda%20com%20meu%20equipamento." target="_blank" class="btn-primary">
                     <i class="fa-brands fa-whatsapp"></i> Solicitar Orçamento
                 </a>
@@ -576,10 +698,103 @@
         </div>
     </section>
 
+    <!-- Secção Carrossel de Produtos -->
+    <section id="produtos" class="produtos-section">
+        <div class="container">
+            <h2>Peças e <span class="highlight">Equipamentos</span></h2>
+            <p class="section-desc">Exemplos de produtos, acessórios e peças de reposição que fornecemos.</p>
+
+            <div class="carousel-wrapper">
+                <!-- Botão de Voltar -->
+                <button class="carousel-btn btn-prev" id="btnPrev">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+
+                <!-- Trilha do Carrossel -->
+                <div class="carousel-track" id="carouselTrack">
+                    
+                    <!-- Produto 1 -->
+                    <div class="produto-card">
+                        <div class="produto-img-box">
+                            <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=400&q=80" alt="Motor Compressor">
+                        </div>
+                        <div class="produto-info">
+                            <h3>Motor para Compressor</h3>
+                            <p>Motores novos e recondicionados para diversas marcas de compressores de ar.</p>
+                        </div>
+                        <a href="https://wa.me/5551991868065?text=Olá%20Julio,%20gostaria%20de%20saber%20o%20valor%20do%20Motor%20para%20Compressor." target="_blank" class="btn-comprar">
+                            <i class="fa-brands fa-whatsapp"></i> Consultar Valor
+                        </a>
+                    </div>
+
+                    <!-- Produto 2 -->
+                    <div class="produto-card">
+                        <div class="produto-img-box">
+                            <img src="https://images.unsplash.com/photo-1572981779307-38b8cabb2407?auto=format&fit=crop&w=400&q=80" alt="Filtro de Ar">
+                        </div>
+                        <div class="produto-info">
+                            <h3>Filtros de Ar Originais</h3>
+                            <p>Filtros com rosca de metal e plástico para compressores Schulz, Pressure, entre outros.</p>
+                        </div>
+                        <a href="https://wa.me/5551991868065?text=Olá%20Julio,%20gostaria%20de%20saber%20o%20valor%20dos%20Filtros%20de%20Ar." target="_blank" class="btn-comprar">
+                            <i class="fa-brands fa-whatsapp"></i> Consultar Valor
+                        </a>
+                    </div>
+
+                    <!-- Produto 3 -->
+                    <div class="produto-card">
+                        <div class="produto-img-box">
+                            <img src="https://images.unsplash.com/photo-1549887552-cb1071d3e5ca?auto=format&fit=crop&w=400&q=80" alt="Mangueira Lava Jato">
+                        </div>
+                        <div class="produto-info">
+                            <h3>Mangueiras de Alta Pressão</h3>
+                            <p>Mangueiras com trama de aço e nylon para Lava Jatos Karcher, Wap e Lavor.</p>
+                        </div>
+                        <a href="https://wa.me/5551991868065?text=Olá%20Julio,%20gostaria%20de%20saber%20o%20valor%20das%20Mangueiras%20de%20Alta%20Pressão." target="_blank" class="btn-comprar">
+                            <i class="fa-brands fa-whatsapp"></i> Consultar Valor
+                        </a>
+                    </div>
+
+                    <!-- Produto 4 -->
+                    <div class="produto-card">
+                        <div class="produto-img-box">
+                            <img src="https://images.unsplash.com/photo-1629815049301-4475ea751d38?auto=format&fit=crop&w=400&q=80" alt="Óleo Lubrificante">
+                        </div>
+                        <div class="produto-info">
+                            <h3>Óleo Lubrificante</h3>
+                            <p>Óleo específico para bombas de alta pressão e cabeçotes de compressores.</p>
+                        </div>
+                        <a href="https://wa.me/5551991868065?text=Olá%20Julio,%20gostaria%20de%20saber%20o%20valor%20do%20Óleo%20Lubrificante." target="_blank" class="btn-comprar">
+                            <i class="fa-brands fa-whatsapp"></i> Consultar Valor
+                        </a>
+                    </div>
+
+                    <!-- Produto 5 -->
+                    <div class="produto-card">
+                        <div class="produto-img-box">
+                            <img src="https://images.unsplash.com/photo-1585435421671-0c16764628ce?auto=format&fit=crop&w=400&q=80" alt="Pistolas e Bicos">
+                        </div>
+                        <div class="produto-info">
+                            <h3>Gatilhos e Lanças</h3>
+                            <p>Conjunto de pistolas, lanças e bicos (leque, turbo) para máquinas de lavar.</p>
+                        </div>
+                        <a href="https://wa.me/5551991868065?text=Olá%20Julio,%20gostaria%20de%20saber%20o%20valor%20dos%20Gatilhos%20e%20Lanças." target="_blank" class="btn-comprar">
+                            <i class="fa-brands fa-whatsapp"></i> Consultar Valor
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Botão de Avançar -->
+                <button class="carousel-btn btn-next" id="btnNext">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
     <!-- Contato e Endereço -->
     <section id="contato">
         <div class="container cp-grid">
-            <!-- Bloco Fale Conosco -->
             <div class="fale-conosco-box">
                 <span class="fc-label">ATENDIMENTO DIRETO</span>
                 
@@ -599,13 +814,11 @@
                     <p><i class="fa-solid fa-clock"></i> Atendimento rápido e diagnóstico preciso</p>
                 </div>
 
-                <!-- Atualizado com o número fornecido -->
                 <a href="https://wa.me/5551991868065?text=Olá%20Julio,%20vim%20pelo%20site%20e%20gostaria%20de%20falar%20sobre%20meu%20equipamento." target="_blank" class="btn-whatsapp-grande">
                     <i class="fa-brands fa-whatsapp"></i> Falar com Julio agora
                 </a>
             </div>
 
-            <!-- Bloco Diferenciais -->
             <div class="cartao-box">
                 <h3><i class="fa-solid fa-award"></i> Por que escolher a Assistec?</h3>
                 <p class="cartao-desc"><i class="fa-solid fa-check" style="color:var(--whatsapp)"></i> <strong>Atendimento Rápido:</strong> Não fique com sua máquina parada, sabemos a importância dela para o seu trabalho.</p>
@@ -633,7 +846,6 @@
             <div class="modal-icon" id="modalIcon"></div>
             <h3 id="modalTitle" style="color: #fff;">Título</h3>
             <p id="modalDescription" style="color: #ccc; margin-bottom: 20px;">Descrição</p>
-            <!-- O link é injetado via JS -->
             <a id="modalWhatsappBtn" href="#" target="_blank" class="btn-whatsapp-modal">
                 <i class="fa-brands fa-whatsapp"></i> Solicitar via WhatsApp
             </a>
@@ -643,6 +855,7 @@
     <!-- Script de interação -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Lógica do Modal de Serviços
             const servicesData = {
                 compressor: {
                     icon: "fa-solid fa-gauge-high",
@@ -672,8 +885,6 @@
             const modalTitle = document.getElementById('modalTitle');
             const modalDescription = document.getElementById('modalDescription');
             const modalWhatsappBtn = document.getElementById('modalWhatsappBtn');
-
-            // Número fixo do Julio (Assistec)
             const whatsappNumber = "5551991868065";
 
             document.querySelectorAll('.card-servico').forEach(card => {
@@ -694,20 +905,24 @@
                 });
             });
 
-            closeModalBtn.addEventListener('click', () => {
-                modal.classList.remove('active');
+            closeModalBtn.addEventListener('click', () => modal.classList.remove('active'));
+            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') modal.classList.remove('active'); });
+
+            // Lógica do Carrossel de Produtos
+            const track = document.getElementById('carouselTrack');
+            const btnPrev = document.getElementById('btnPrev');
+            const btnNext = document.getElementById('btnNext');
+
+            // Calcula o tamanho de scroll baseado no tamanho do card + gap (aproximadamente 300px)
+            const scrollAmount = 300; 
+
+            btnNext.addEventListener('click', () => {
+                track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
             });
 
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                }
-            });
-
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    modal.classList.remove('active');
-                }
+            btnPrev.addEventListener('click', () => {
+                track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
             });
         });
     </script>
