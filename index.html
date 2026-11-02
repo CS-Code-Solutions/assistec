@@ -197,7 +197,7 @@
             margin-bottom: 40px;
         }
 
-        /* Marcas */
+        /* Marcas - LAYOUT ATUALIZADO PARA GRID */
         .marcas-section {
             background-color: #081733;
             border-top: 1px solid rgba(255,255,255,0.05);
@@ -205,23 +205,34 @@
         }
 
         .marcas-grid {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 colunas uniformes no mobile */
+            gap: 12px;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .marca-badge {
             background-color: var(--card-bg);
-            padding: 10px 20px;
-            border-radius: 30px;
+            padding: 12px 10px;
+            border-radius: 8px; /* Borda mais moderna que o formato pílula antigo */
             font-weight: bold;
             color: var(--accent);
             border: 1px solid rgba(255,208,0,0.2);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
         }
 
-        /* NOVO: Banner Diferencial FDS */
+        .marca-badge:hover {
+            background-color: rgba(255,208,0,0.1);
+            border-color: var(--accent);
+        }
+
+        /* Banner Diferencial FDS */
         .destaque-fds {
             padding: 0 0 70px 0;
             background-color: #081733;
@@ -676,6 +687,13 @@
         }
 
         /* Responsividade */
+        @media (min-width: 768px) {
+            .marcas-grid {
+                grid-template-columns: repeat(4, 1fr); /* 4 colunas no computador */
+                gap: 15px;
+            }
+        }
+
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.3rem; }
             .cp-grid { grid-template-columns: 1fr; }
@@ -732,6 +750,7 @@
     <!-- Marcas Trabalhadas -->
     <section class="marcas-section">
         <div class="container">
+            <!-- Grid atualizado com CSS Grid e 8 itens exatos -->
             <div class="marcas-grid">
                 <div class="marca-badge">Schulz</div>
                 <div class="marca-badge">Wayne</div>
@@ -739,14 +758,13 @@
                 <div class="marca-badge">Pressure</div>
                 <div class="marca-badge">Karcher</div>
                 <div class="marca-badge">Wap</div>
-                <div class="marca-badge">Lavor</div>
                 <div class="marca-badge">Electrolux</div>
-                <div class="marca-badge" style="background: transparent; border: none; color: #fff;">+ Outras Marcas</div>
+                <div class="marca-badge">Multimarcas</div>
             </div>
         </div>
     </section>
 
-    <!-- NOVO: Banner Diferencial Fim de Semana -->
+    <!-- Banner Diferencial Fim de Semana -->
     <section class="destaque-fds">
         <div class="container">
             <div class="fds-banner">
@@ -797,14 +815,11 @@
             <p class="section-desc">Exemplos de produtos, acessórios e peças de reposição que fornecemos.</p>
 
             <div class="carousel-wrapper">
-                <!-- Botão de Voltar -->
                 <button class="carousel-btn btn-prev" id="btnPrev">
                     <i class="fa-solid fa-chevron-left"></i>
                 </button>
 
-                <!-- Trilha do Carrossel -->
                 <div class="carousel-track" id="carouselTrack">
-                    
                     <div class="produto-card">
                         <div class="produto-img-box">
                             <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=400&q=80" alt="Motor Compressor">
@@ -871,7 +886,6 @@
                     </div>
                 </div>
 
-                <!-- Botão de Avançar -->
                 <button class="carousel-btn btn-next" id="btnNext">
                     <i class="fa-solid fa-chevron-right"></i>
                 </button>
@@ -906,7 +920,6 @@
                 </a>
             </div>
 
-            <!-- Adicionado o diferencial nesta lista também -->
             <div class="cartao-box">
                 <h3><i class="fa-solid fa-award"></i> Por que escolher a Assistec?</h3>
                 <p class="cartao-desc"><i class="fa-solid fa-bolt" style="color:var(--accent)"></i> <strong>Plantão Fim de Semana:</strong> Retiramos na sexta e devolvemos no domingo. Sua empresa não perde dias úteis de produção.</p>
@@ -921,7 +934,7 @@
         </div>
     </section>
 
-    <!-- Rodapé (Com a assinatura da sua empresa inclusa) -->
+    <!-- Rodapé -->
     <footer>
         <div class="container">
             <p>&copy; 2026 ASSISTEC Peças e Serviços. Todos os direitos reservados.</p>
@@ -945,7 +958,6 @@
     <!-- Script de interação -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Lógica do Modal de Serviços
             const servicesData = {
                 compressor: {
                     icon: "fa-solid fa-gauge-high",
@@ -999,7 +1011,6 @@
             modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
             document.addEventListener('keydown', (e) => { if (e.key === 'Escape') modal.classList.remove('active'); });
 
-            // Lógica do Carrossel de Produtos
             const track = document.getElementById('carouselTrack');
             const btnPrev = document.getElementById('btnPrev');
             const btnNext = document.getElementById('btnNext');
