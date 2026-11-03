@@ -193,14 +193,14 @@
 
         .section-desc {
             color: var(--text-gray);
-            margin-bottom: 30px; /* Reduzido para aproximar elementos */
+            margin-bottom: 30px; 
         }
 
         /* Marcas */
         .marcas-section {
             background-color: #081733;
             border-top: 1px solid rgba(255,255,255,0.05);
-            padding: 35px 0;
+            padding: 35px 0 15px 0; /* Reduzido padding bottom */
         }
 
         .marcas-grid {
@@ -233,7 +233,7 @@
 
         /* Banner Diferencial FDS */
         .destaque-fds {
-            padding: 0 0 45px 0;
+            padding: 15px 0 45px 0; /* Ajustado padding top */
             background-color: #081733;
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
@@ -293,7 +293,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 15px;
-            margin-bottom: 0; /* Removido margem excessiva que causava buraco */
+            margin-bottom: 0; 
         }
 
         .card-servico {
@@ -695,7 +695,9 @@
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.3rem; }
-            section { padding: 35px 0; } /* Padding ainda menor no mobile */
+            section { padding: 35px 0; } 
+            .marcas-section { padding: 35px 0 10px 0; } /* Ajuste extra no mobile */
+            .destaque-fds { padding: 10px 0 35px 0; } /* Ajuste extra no mobile */
             .cp-grid { grid-template-columns: 1fr; }
             .btn-prev { left: 5px; }
             .btn-next { right: 5px; }
@@ -763,14 +765,14 @@
         </div>
     </section>
 
-    <!-- Banner Diferencial Fim de Semana -->
+    <!-- Banner Diferencial Manutenção -->
     <section class="destaque-fds">
         <div class="container">
             <div class="fds-banner">
                 <div class="fds-icon"><i class="fa-solid fa-truck-fast"></i></div>
                 <div class="fds-text">
-                    <h3>Plantão de Fim de Semana</h3>
-                    <p>Nós sabemos que a sua produção não pode parar. <strong>Retiramos o equipamento na sexta-feira e devolvemos pronto no domingo</strong>, garantindo que a sua empresa inicie a segunda-feira rodando de forma profissional e com força total!</p>
+                    <h3>Serviço de Manutenção</h3>
+                    <p>Se puder esperar até sexta-feira, mediante avaliação do seu produto, retiramos o equipamento e fazemos a devolução e montagem no domingo.</p>
                 </div>
             </div>
         </div>
@@ -908,7 +910,7 @@
                         <i class="fa-solid fa-user-tie"></i>
                     </div>
                     <div class="perfil-nome-area">
-                        <h3>Julio César</h3>
+                        <h3>Julio</h3>
                         <p class="perfil-cargo">Técnico Especialista</p>
                     </div>
                 </div>
@@ -926,7 +928,7 @@
 
             <div class="cartao-box">
                 <h3><i class="fa-solid fa-award"></i> Por que escolher a Assistec?</h3>
-                <p class="cartao-desc"><i class="fa-solid fa-bolt" style="color:var(--accent)"></i> <strong>Plantão Fim de Semana:</strong> Retiramos na sexta e devolvemos no domingo. Sua empresa não perde dias úteis de produção.</p>
+                <p class="cartao-desc"><i class="fa-solid fa-bolt" style="color:var(--accent)"></i> <strong>Serviço de Manutenção:</strong> Retiramos na sexta e devolvemos no domingo (mediante avaliação).</p>
                 <p class="cartao-desc"><i class="fa-solid fa-check" style="color:var(--whatsapp)"></i> <strong>Atendimento Rápido:</strong> Não fique com sua máquina parada, sabemos a importância dela para o seu trabalho.</p>
                 <p class="cartao-desc"><i class="fa-solid fa-check" style="color:var(--whatsapp)"></i> <strong>Peças de Qualidade:</strong> Trabalhamos com componentes de alta durabilidade para Compressores e Lava Jatos.</p>
                 <p class="cartao-desc"><i class="fa-solid fa-check" style="color:var(--whatsapp)"></i> <strong>Experiência:</strong> Diagnóstico certeiro para as principais marcas do mercado.</p>
@@ -971,7 +973,7 @@
                 lavajato: {
                     icon: "fa-solid fa-water",
                     title: "Conserto de Lava Jato",
-                    description: "Reparo especializado em bombas, troca de gaxetas, mangueiras, bicos e pistões. Atendemos Karcher, Wap, Lavor, Electrolux e demais marcas."
+                    description: "Reparo especializado em bombas, troca de gaxetas, mangueiras, bicos e pistões. Atendemos Karcher, Wap, Electrolux e demais marcas."
                 },
                 pecas: {
                     icon: "fa-solid fa-cogs",
